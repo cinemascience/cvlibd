@@ -28,6 +28,8 @@ new CVLIBD.Database("myDatabase.json", function(db) {
 	}
 });
 ```
+##Demos
+Be sure to look at the two included demos. **simple.html** is a very simple, but general purpose, viewer which displays all input structures in a sidebar with the output structures making up the main content of the page. It makes use of the SuperBuilder and SuperLoader for all of its building and loading. **advanced.html** demonstrates how CVLIB-D can be used to create more specialized viewers for specific datasets. It includes examples of overriding the SuperBuilder's CSS and using a custom builder for an input structure.
 
 ##Architecture
 CVLIB-D provides the following classes, representing various elements of the Spec-D Advanced Specification:

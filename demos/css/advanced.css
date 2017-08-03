@@ -1,0 +1,96 @@
+body {
+	margin: initial;
+	font-family: "segoe", "arial", "sans-serif";
+	color: #eee;
+	text-align: center;
+
+	background: dimgray;
+}
+
+h1 {
+	margin: initial;
+	padding: 6px;
+
+	font-size: 48px;
+	background: #54a2e5;
+	border-bottom: solid 4px #3d83bf;
+}
+
+#viewport {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	max-width: 750px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	box-sizing: border-box;
+
+	background: #8cb6db;
+	border: solid 6px #3d83bf;
+}
+
+#controlPanel {
+	display: inline-flex;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 3px auto;
+	padding: 3px;
+
+	background: #8cb6db;
+	border: solid 4px #709bc1;
+}
+
+#viewToggles {
+	position: absolute;
+	bottom: 3px;
+	right: 3px;
+	text-align: right;
+
+	background: rgba(0,0,0,0.5);
+	border-radius: 3px;
+	color: white;
+	font-size: 12px;
+}
+
+/************
+* SuperBuilder Overrides
+*************/
+
+.cvlibD_structure[io="input"],
+.cvlibD_structure[io="output"],
+.cvlibD_structure[io="input"] .SUPERBUILDER_Header,
+.cvlibD_structure[io="output"] .SUPERBUILDER_Header {
+	background: initial;
+	border: initial;
+}
+
+.SUPERBUILDER_Content {
+	text-align: initial;
+}
+
+.cvlibD_structure[id="image"] {
+	margin: initial;
+	width: 100%;
+}
+
+.cvlibD_structure[id="image"] .SUPERBUILDER_Header {
+	display: none;
+}
+
+.cvlibD_structure[id="image"] .SUPERBUILDER_Content {
+	padding: initial;
+}
+
+.cvlibD_structure[id="image"] img {
+	width: 100%;
+}
+
+.SUPERBUILDER_Content .graticuleWrapper path {
+	fill: none;
+	stroke: #333;
+}
+.SUPERBUILDER_Content .graticuleWrapper circle {
+	stroke: #333;
+	fill: #749bbf;
+	stroke-width: 2;
+}

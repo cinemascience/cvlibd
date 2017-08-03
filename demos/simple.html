@@ -101,6 +101,7 @@
 			outputs.innerHTML = '';
 
 			currentDisplay = currentDb.displays[displaySelect.value];
+			//Activating a display loads the source and builds structures
 			currentDisplay.activate();
 
 			for (var key in currentDisplay.inputs) {

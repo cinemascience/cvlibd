@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<!--A more advanced demonstration of the CVLIB-D Library
+		Has a specialized layout, css and makes use of a custom builder function.-->
+		<meta name="Author", content="Cameron Tauxe"></meta>
+		<title>CVLIB D Advanced Viewer</title>
+		<meta charset="utf-8"/>
+
+		<!--Default styling for SuperBuilder content-->
+		<link rel="stylesheet" href="css/SuperBuilder_plain.css"></link>
+		<link rel="stylesheet" href="css/advanced.css"></link>
+
+		<!--Dependencies-->
+		<script src="../lib/d3.min.js"></script>
+		<script src="../lib/ElementQueries.js"></script>
+		<script src="../lib/ResizeSensor.js"></script>
+
+		<!--CVLIB-D-->
+		<script src="../js/cvlibD.js"></script>
+		<script src="../js/SuperBuilder.js"></script>
+		<script src="../js/SuperLoader.js"></script>
+	</head>
+	<body>
+		<h1>Cosmology</h1>
+		<div id="viewport">
+			<div id="viewToggles"></div>
+		</div>
+		<br>
+		<div id="controlPanel"></div>
+	</body>
+	<script>
+		//Get DOM Elements
+		var viewport = document.getElementById('viewport');
+		var viewToggles = document.getElementById('viewToggles');
+		var controlPanel = document.getElementById('controlPanel');
+
+		//Create Database
+		new CVLIBD.Database('data/cosmo/cosmo.json',function(db) {
+			//Set builders and loaders to SuperLoader and SuperBuilder
+			db.setLoadersForAll(SUPERLOADER);
+			db.addBuildersToAll(SUPERBUILDER);
+
+			//Get references to main display and its structures
+			var display = db.displays["main"];
+			var structs = display.structures;
+
+			//Set special builder for volume and halos structures
+			//Note that the builders property is being set directly to
+			//remove the previously set SuperBuilder on these structures
+			structs['volume'].builders = [checkboxBuilder];
+			structs['halos'].builders = [checkboxBuilder];
+
+			//Activate display (load source and build structures)
+			display.activate();
+
+			//Add image structure content to viewport
+			viewport.appendChild(structs['image'].content);
+
+			//Add halos and volume structure content to viewToggles
+			viewToggles.appendChild(structs['volume'].content);
+			viewToggles.appendChild(document.createElement('br'));
+			viewToggles.appendChild(structs['halos'].content);
+
+			//Add other control structure content to controlPanel
+			controlPanel.appendChild(structs['orbit'].content);
+			controlPanel.appendChild(structs['time'].content);
+			controlPanel.appendChild(structs['volumeIdx'].content);
+		});
+
+		/**
+		* Custom builder function.
+		* Uses a checkbox to determine if the value should be "on" or "off"
+		*/
+		function checkboxBuilder() {
+			var self = this;
+
+			//get value (in this case either volume or halos)
+			var key = this.info.arguments.value;
+
+			//Add a label
+			var label = d3.select(this.content).append('span')
+				.text('Show ' + key);
+
+			//Add the checkbox which triggers updateQuery and update when changed
+			var checkbox = d3.select(this.content).append('input')
+				.attr('type','checkbox')
+				.attr('checked','checked')
+				.on('change', function() {
+					updateQuery();
+					self.update();
+				});
+
+			//Update query function. Sets the query to include data
+			//that has its (key) value as "on" or "off" depending on
+			//the state of the checkbox
+			var updateQuery = function() {
+				var checked = checkbox.node().checked;
+				self.query = self.source.data.filter(function(d) {
+					return d[key] == (checked ? 'on' : 'off');
+				});
+			}
+			updateQuery();
+		}
+	</script>
+</html>
