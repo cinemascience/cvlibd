@@ -1,0 +1,92 @@
+.cvlibD_structure {
+	display: inline-block;
+	margin: 3px;
+
+}
+.cvlibD_structure[io="input"] {
+	border: solid 2px darkblue;
+}
+.cvlibD_structure[io="output"] {
+	border: solid 2px darkred;
+}
+
+.SUPERBUILDER_Header {
+	padding: 3px;
+
+	color: white;
+}
+
+.cvlibD_structure[io="input"] .SUPERBUILDER_Header {
+	background: darkblue;
+}
+.cvlibD_structure[io="output"] .SUPERBUILDER_Header {
+	background: darkred;
+}
+
+.SUPERBUILDER_Content {
+	padding: 3px;
+}
+
+.SUPERBUILDER_Content .graticuleWrapper {
+	width: 100px;
+	height: 100px;
+	cursor: move;
+}
+
+.SUPERBUILDER_Content .graticuleWrapper path {
+	fill: none;
+	stroke: #666;
+}
+.SUPERBUILDER_Content .graticuleWrapper circle {
+	stroke: #333;
+	fill: #ccc;
+	stroke-width: 2;
+}
+
+.cvlibD_structure[type="table"] .SUPERBUILDER_Content {
+	height: 500px;
+	overflow: auto;
+}
+
+.cvlibD_structure[type="table"] .SUPERBUILDER_Content td {
+	border: 1px solid black;
+	padding: 2px;
+}
+
+.cvlibD_structure[type="table"] .SUPERBUILDER_Content table {
+	border-collapse: collapse;
+}
+
+.SUPERBUILDER_Content .hiddenImg {
+	display: none;
+}
+
+.SUPERBUILDER_Content .graphWrapper {
+	width: 500px;
+	height: 300px;
+}
+
+.SUPERBUILDER_Content .graphWrapper .viewport {
+	background: #eee;
+}
+
+.SUPERBUILDER_Content .graphWrapper .axis text {
+	fill: black;
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+.SUPERBUILDER_Content .graphWrapper .axis line,
+.SUPERBUILDER_Content .graphWrapper .axis path {
+	stroke: black;
+}
+
+.SUPERBUILDER_Content .graphWrapper .dataset[type="line"] {
+	fill: none;
+	stroke-width: 1px;
+	stroke: crimson;
+}
+
+.SUPERBUILDER_Content .graphWrapper .dataset[type="scatter"] .point {
+	fill: crimson;
+	stroke-width: 1px;
+}

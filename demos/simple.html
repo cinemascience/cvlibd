@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<!--A simple viewer for viewing advanced Spec-D Databases
+		demonstrating basic usage of the CVLIB-D library. Relies on the
+		SuperBuilder and SuperLoader plug-ins-->
+		<meta name="Author", content="Cameron Tauxe"></meta>
+		<title>CVLIB D Simple Viewer</title>
+		<meta charset="utf-8"/>
+
+		<!--Default styling for SuperBuilder content-->
+		<link rel="stylesheet" href="css/superBuilder_plain.css"></link>
+
+		<!--Dependencies-->
+		<script src="../lib/d3.min.js"></script>
+		<script src="../lib/ElementQueries.js"></script>
+		<script src="../lib/ResizeSensor.js"></script>
+
+		<!--CVLIB-D-->
+		<script src="../js/cvlibD.js"></script>
+		<script src="../js/SuperBuilder.js"></script>
+		<script src="../js/SuperLoader.js"></script>
+	</head>
+	<style>
+		#sidebar {
+			position: fixed;
+			top: 0px;
+			bottom: 0px;
+			left: 0px;
+			width: 375px;
+			border-right: 1px solid black;
+			overflow: auto;
+		}
+		h1 {
+			border-bottom: 1px solid black;
+		}
+		#selections {
+			margin: 5px;
+			padding: 3px;
+			border: 1px solid black;
+		}
+		#outputs {
+			margin-left: 375px;
+		}
+	</style>
+	<body>
+		<div id="sidebar">
+			<h1>CVLIB-D Simple Viewer</h1>
+			<div id="selections">
+				Database:
+				<select id="databaseSelect" onchange="loadCurrentDb()">
+					<option value="data/volume-render/volume-render.json">Volume Render</option>
+					<option value="data/cosmo/cosmo.json">Cosmology</option>
+				</select>
+				<br>
+				Display:
+				<select id="displaySelect" onchange="activateCurrentDisplay()"></select>
+			</div>
+			<div id="inputs"></div>
+		</div>
+		<div id="outputs"></div>
+	</body>
+	<script>
+		//Variable declarations
+		var currentDb;
+		var currentDisplay;
+		var inputs = document.getElementById("inputs");
+		var outputs = document.getElementById("outputs");
+		var databaseSelect = document.getElementById('databaseSelect');
+		var displaySelect = document.getElementById('displaySelect');
+
+		//Load first database
+		loadCurrentDb();
+
+		//Set the current database to what is selected 
+		//and call doneLoading when it has finished loading
+		function loadCurrentDb() {
+			currentDb = new CVLIBD.Database(databaseSelect.value, doneLoading);
+		}
+
+		//Add SuperLoader and SuperBuilder to database, populate 
+		//display selection with the databases' displays.
+		function doneLoading() {
+			currentDb.setLoadersForAll(SUPERLOADER);
+			currentDb.addBuildersToAll(SUPERBUILDER);
+
+			displaySelect.innerHTML = '';
+			for (var key in currentDb.displays) {
+				var display = currentDb.displays[key];
+				var newOption = document.createElement('option');
+				newOption.setAttribute('value',key);
+				newOption.innerText = display.label ? display.label : key;
+				displaySelect.appendChild(newOption);
+			}
+			activateCurrentDisplay();
+		}
+
+		//Set the current display. Clear the current contents and 
+		//add structures from new display.
+		function activateCurrentDisplay() {
+			inputs.innerHTML = '';
+			outputs.innerHTML = '';
+
+			currentDisplay = currentDb.displays[displaySelect.value];
+			currentDisplay.activate();
+
+			for (var key in currentDisplay.inputs) {
+				inputs.appendChild(currentDisplay.inputs[key].content);
+				inputs.appendChild(document.createElement('br'));
+			}
+			for (var key in currentDisplay.outputs) {
+				outputs.appendChild(currentDisplay.outputs[key].content);
+			}
+		}
+	</script>
+</html>

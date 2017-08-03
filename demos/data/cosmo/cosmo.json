@@ -1,0 +1,133 @@
+{
+	"cinema" : {
+		"specification": "D",
+		"version": 2
+	},
+	"sources": {
+		"data_csv": {
+			"uri": "data.csv",
+			"table": null,
+			"mime": "text/csv"
+		}
+	},
+	"displays" : {
+		"main" : {
+			"label": "Main View",
+			"source": "data_csv",
+			"structures": {
+				"orbit" : {
+					"type": "camera-orbit",
+					"label": "Orbit",
+					"io": "input",
+					"arguments": {
+						"phi_theta": ["phi","theta"],
+						"units": ["degrees","degrees"]
+					}
+				},
+				"time" : {
+					"type": "scalar",
+					"label": "Time",
+					"io": "input",
+					"arguments": {
+						"value": "time",
+						"units": "timesteps"
+					}
+				},
+				"volumeIdx" : {
+					"type": "scalar",
+					"label": "VolumeIdx",
+					"io": "input",
+					"arguments": {
+						"value": "volumeIdx",
+						"units": ""
+					}
+				},
+				"volume" : {
+					"type": "category",
+					"label": "Volume Visibility",
+					"io": "input",
+					"arguments": {
+						"value": "volume"
+					}
+				},
+				"halos" : {
+					"type": "category",
+					"label": "Halos Visibility",
+					"io": "input",
+					"arguments": {
+						"value": "halos"
+					}
+				},
+				"image" : {
+					"type": "image-file-format-by-ext",
+					"label": "Image",
+					"io": "output",
+					"arguments": {
+						"uri_format": "%d/%s/%s/%d/%d_%d.jpg",
+						"0": "time",
+						"1": "halos",
+						"2": "volume",
+						"3": "volumeIdx",
+						"4": "theta",
+						"5": "phi"
+					}
+				}
+			}
+		},
+		"volumeOnOff" : {
+			"label": "Volume On/Off",
+			"source": "data_csv",
+			"structures": {
+				"orbit" : {
+					"type": "camera-orbit",
+					"label": "Orbit",
+					"io": "input",
+					"arguments": {
+						"phi_theta": ["phi","theta"],
+						"units": ["degrees","degrees"]
+					}
+				},
+				"time" : {
+					"type": "scalar",
+					"label": "Time",
+					"io": "input",
+					"arguments": {
+						"value": "time",
+						"units": "timesteps"
+					}
+				},
+				"volumeIdx" : {
+					"type": "scalar",
+					"label": "VolumeIdx",
+					"io": "input",
+					"arguments": {
+						"value": "volumeIdx",
+						"units": ""
+					}
+				},
+				"halos" : {
+					"type": "category",
+					"label": "Halos Visibility",
+					"io": "input",
+					"arguments": {
+						"value": "halos"
+					}
+				},
+				"image" : {
+					"type": "image-file-format-by-ext",
+					"label": "Image",
+					"io": "output",
+					"arguments": {
+						"uri_format": "%d/%s/%s/%d/%d_%d.jpg",
+						"0": "time",
+						"1": "halos",
+						"2": "volume",
+						"3": "volumeIdx",
+						"4": "theta",
+						"5": "phi"
+					}
+				}
+			}
+		}
+	}
+}
