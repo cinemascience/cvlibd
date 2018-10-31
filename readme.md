@@ -1,12 +1,12 @@
-#CVLIB-D
+# CVLIB-D
 
-##Author: Cameron Tauxe
+## Author: Cameron Tauxe
 
 CVLIB-D is a javascript framework to faciliate the creation of viewer applications for Spec-D Advanced Cinema Databases.
 
 Because of the wide variety of data that Spec-D can represent, viewers for Spec-D databases often have to be custom-built for viewing a specific kind of data. This CVLIB-D is a not a viewer itself, but a library which handles the connection between Sources, Displays and Input/Output Structures as outlined in the databases JSON file to allow for the very easy creation of highly-customizable viewer applications.
 
-##Example
+## Example
 Paired with the **SuperBuilder** and **SuperLoader** plug-ins (included), making a simple viewer for Spec-D database can be done in only a few lines of code.
 
 ```javascript
@@ -28,10 +28,10 @@ new CVLIBD.Database("myDatabase.json", function(db) {
 	}
 });
 ```
-##Demos
+## Demos
 Be sure to look at the two included demos. **simple.html** is a very simple, but general purpose, viewer which displays all input structures in a sidebar with the output structures making up the main content of the page. It makes use of the SuperBuilder and SuperLoader for all of its building and loading. **advanced.html** demonstrates how CVLIB-D can be used to create more specialized viewers for specific datasets. It includes examples of overriding the SuperBuilder's CSS and using a custom builder for an input structure.
 
-##Architecture
+## Architecture
 CVLIB-D provides the following classes, representing various elements of the Spec-D Advanced Specification:
 * **Database**: An over-arching class representing the entire database. Contains sources and displays
 * **Source**: Represents a data source. Loads data through use of a special *loader* function and stores it for use by displays and structures.
@@ -39,14 +39,14 @@ CVLIB-D provides the following classes, representing various elements of the Spe
 * **InputStrcuture**: Represents a single structure with io 'input.' Given a data source, provides controls (created through a special *builder* function)to define a subset of the data to view.
 * **OutputStructure**: Represents a single structure with io 'output.' Given a data source, provides an interface (created through a special *builder* function) to display a subset of data. (This subset is the intersection of the subsets defined by all input structures in the same display).
 
-##Guide
+## Guide
 
-###The SuperBuilder and SuperLoader Plug-Ins
+### The SuperBuilder and SuperLoader Plug-Ins
 Each input or output structure is given a *builder* function which is called to create the DOM content of the structure (controls for an input structure, a view for an output structure).
 Similiarly, each source is given a *loader* function which is called to read the source's file and populate an array of data.
 These builder and loader functions can be custom-built for specific structures or sources, which may be needed for specialized data, but for simpler structures and data formats, the SuperBuilder and SuperLoader plug-ins can be used which provide a variety of default builder and loader functions for common structures and data formats.
 
-####The SuperBuilder
+#### The SuperBuilder
 To use the SuperBuilder, simply add it as you would any other builder, like so:
 ```javascript
 //add the SuperBuilder to a single structure called 'struct'
@@ -63,7 +63,7 @@ Currently the SuperBuilder supports the following types
 * **image-file-format-by-ext (output)**: Used for results which output an image. Display an image for each result.
 * **simple-plot-2d (output)**: Used for reusults which output other data. Display results on either a line graph or scatter plot.
 
-####The SuperLoader
+#### The SuperLoader
 To use the SuperLoader, simply add it as you would any other loader, like so:
 ```javascript
 //add the SuperLoader to a single source called 'src'
